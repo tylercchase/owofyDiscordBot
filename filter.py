@@ -2,14 +2,14 @@ import cv2
 import numpy as np
 from urllib.request import urlopen, Request
 import io
-
+from random import choice
 def process_image(avatar_url,readFlag=cv2.IMREAD_COLOR):
     #get and download image to memory
     req = Request(avatar_url, headers = {"User-Agent": "Mozilla/5.0"})
     resp = urlopen(req)
     image = np.asarray(bytearray(resp.read()), dtype="uint8")
     image = cv2.imdecode(image, readFlag)
-    
+    image = cv2.resize(image, (110,110))
 
     #Add pink overlay
     overlay = image.copy()
@@ -21,7 +21,7 @@ def process_image(avatar_url,readFlag=cv2.IMREAD_COLOR):
     petals = cv2.resize(petals, (110,110))
     final = cv2.addWeighted(image,1,petals,0.5,1)
     
-    buffer = cv2.imencode(".png",final)
+    response, buffer = cv2.imencode(".png",final)
 
     io_buf = io.BytesIO(buffer)
 
