@@ -1,7 +1,7 @@
-import discord
+import discord, os
 from filter import process_image, owoify_text
 from owotrans import owo
-TOKEN = 'NDE4NjY3ODk5MjI2Njg1NDQw.XoRWZQ.qoJdpLRZkc7JluYsKd9DqfwoX3Y'
+TOKEN = os.getenv(TOKEN)
 
 client = discord.Client()
 
